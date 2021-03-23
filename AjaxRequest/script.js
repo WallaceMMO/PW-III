@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", event => {
         }
     }
 
-    ajax.open('GET', 'https://reqres.in/api/users?page=1');
+    ajax.open('GET', 'https://reqres.in/api/users');
     ajax.send();
 
 });
