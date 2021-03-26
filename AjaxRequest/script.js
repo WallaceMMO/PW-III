@@ -1,18 +1,11 @@
 var ajax = new XMLHttpRequest();
+const d = document;
+const container = d.querySelector('.container-list');
 
 document.addEventListener("DOMContentLoaded", event => {
-
-    var container = document.querySelector('.container-list');
-
     ajax.onreadystatechange = () => {
         if(ajax.readyState == 4 && ajax.status == 200){
-            const r = JSON.parse(ajax.response).data;
-            
-            //r.forEach(user => console.log(user));
-
-            r.forEach(data => {
-                const d = document;
-
+            JSON.parse(ajax.response).data.forEach(data => {
                 var row = d.createElement('div');
                 row.classList.add('row');
 
@@ -26,37 +19,25 @@ document.addEventListener("DOMContentLoaded", event => {
                 spanH3.appendChild(d.createTextNode(`(#${data.id})`))
                 h3.appendChild(spanH3)
 
-                var p = [
-                    d.createElement('p'),
-                    d.createElement('p'),
-                    d.createElement('p')
-                ]
-
-                var spanData = [
-                    d.createElement('span'),
-                    d.createElement('span'),
-                    d.createElement('span')
-                ]
-
-                spanData[0].appendChild(d.createTextNode(data.first_name))
-                spanData[1].appendChild(d.createTextNode(data.last_name))
-                spanData[2].appendChild(d.createTextNode(data.email))
-
-                p[0].appendChild(d.createTextNode('First Name: '))
-                p[1].appendChild(d.createTextNode('Last Name: '))
-                p[2].appendChild(d.createTextNode('Email: '))
-
-                spanData.map((span, i) => p[i].appendChild(span))
-
                 row.appendChild(img)
                 row.appendChild(h3)
-                p.map(paragraph => row.appendChild(paragraph))
+
+                for(let i = 0; i < Object.keys(data).length; i++){
+                    let p = d.createElement('p')
+                    let span = d.createElement('span')
+                    
+                    if(i > 0 && i < 4){
+                        let legend = new String(`${Object.keys(data)[i]}:`).replace('_', ' ')
+                        p.appendChild(d.createTextNode(legend[0].toUpperCase() + legend.slice(1)))
+                        span.appendChild(d.createTextNode(data[Object.keys(data)[i]]))
+                        p.appendChild(span)
+                        row.appendChild(p)
+                    }
+                }
                 container.appendChild(row)
             })
         }
     }
-
     ajax.open('GET', 'https://reqres.in/api/users');
     ajax.send();
-
 });
