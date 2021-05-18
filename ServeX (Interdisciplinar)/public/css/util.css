@@ -2994,7 +2994,7 @@
 .anime-left{
     opacity: 0;
     transform: translate3d(-100px, 0, 0);
-    transition: .5s;
+    transition: 1.5s;
 }
 
 .anime-right{
@@ -3003,8 +3003,17 @@
     transition: .5s;
 }
 
+.anime-background{
+    transform: translate3d(0, -100%, 0);
+    transition: 2s;
+}
+
 .anime-start{
     opacity: 1;
     transform: translate3d(0, 0, 0);
-    transition: .5s;
+    transition: 1s;
+}
+
+::placeholder {
+	color: #B85900;
 }
