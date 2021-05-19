@@ -4,12 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Technicality extends Model{
-    protected $guarded = [];
+class Technicality extends Model {
 
+    protected $guarded = [];
     protected $primaryKey = 'id';
-    
-    public function filter_tags(){
-        return $this->hasMany('App\FilterTag');
+
+    public function categories() {
+        return $this->belongsToMany('App\Category')
     }
+    
 }
