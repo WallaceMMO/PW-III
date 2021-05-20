@@ -206,10 +206,17 @@ nav form button[type='submit'] i {
     font-family: Poppins-Bold;
     font-size: 16px;
     margin-top: 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.card i {
+    padding-right: 8px;
 }
 
 .card span {
-    padding-left: 8px;
+    padding-left: 3px;
 }
 
 .header-filter {

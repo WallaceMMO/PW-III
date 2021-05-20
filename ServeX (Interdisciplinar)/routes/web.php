@@ -10,7 +10,5 @@ Route::get('/detail/{id}', [GeneralController::class, 'detailView'])->name('deta
 
 // Admin
 
-Route::get('/create-category', [GeneralController::class, 'categoryView']);
-Route::get('/create-technicality', [GeneralController::class, 'technicalityView']);
-Route::post('/create-category', [GeneralController::class, 'createCategory']);
-Route::post('/create-technicality', [GeneralController::class, 'createTechnicality']);
+Route::get('/create', [GeneralController::class, 'createView']);
+Route::post('/create', [GeneralController::class, 'create']);

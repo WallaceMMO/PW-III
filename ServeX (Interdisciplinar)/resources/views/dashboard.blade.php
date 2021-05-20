@@ -43,13 +43,25 @@
         <section class="container-master">
             <div class="content">
                 <div class="cards">
-                    @for ($i = 0; $i < 3; $i++)
-                    <div class="card">
-                        <h3>Title of The Card</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
-                        <p><i class="fas fa-hand-point-right"></i><span>Framework</span></p>
-                    </div>
-                    @endfor
+                    @foreach($technicalities as $technicality)
+                        <div class="card">
+                            <h3>{{$technicality->technicality}}</h3>
+                            <p>{{$technicality->description}}</p>
+                            <p><i class="fas fa-hand-point-right"></i>
+                                <?php $i = 0; ?>
+                                @foreach($technicality->categories as $category)
+                                    <span>
+                                        {{$category->category}}
+                                        <?php
+                                            if(++$i < count($technicality->categories)){
+                                                echo ',';
+                                            }
+                                        ?>
+                                    </span>
+                                @endforeach
+                            </p>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             <div class="sticky-filter">
@@ -61,9 +73,9 @@
                     <form>
                         <select class="dropdown">
                             <option value="null" class="label">Category</option>
-                            <option value="1">Code</option>
-                            <option value="2">Framework</option>
-                            <option value="3">Programming Language</option>
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}">{{$category->category}}</option>
+                            @endforeach
                         </select>
                         <input type="submit" value="Go">
                     </form>

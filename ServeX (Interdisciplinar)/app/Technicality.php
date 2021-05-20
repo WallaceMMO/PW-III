@@ -10,7 +10,7 @@ class Technicality extends Model {
     protected $primaryKey = 'id';
 
     public function categories() {
-        return $this->belongsToMany('App\Category')
+        return $this->belongsToMany('App\Category');
     }
     
 }

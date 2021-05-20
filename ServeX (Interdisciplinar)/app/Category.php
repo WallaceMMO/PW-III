@@ -10,7 +10,7 @@ class Category extends Model {
     protected $primaryKey = 'id';
 
     public function technicalities() {
-        return $this->belongsToMany('App\Technicality')
+        return $this->belongsToMany('App\Technicality');
     }
 
 }

@@ -1,6 +1,16 @@
 @import 'fonts.css';
 @import 'util.css';
 
+@keyframes up {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -15,6 +25,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     height: 100vh;
 }
 
@@ -23,43 +34,53 @@ body {
     background-color: #FF9633;
     padding: 30px;
     box-shadow: 0px 12px 0px -6px #054A91;
+    animation: up 0.4s;
 }
 
 .container h3 {
     color: #B85900;
     font-size: 22px;
     font-family: Poppins-Black;
+    animation: up 0.4s 0.2s backwards;
 }
 
-#category-form {
+form {
     margin-top: 15px;
     margin-bottom: 10px;
 }
 
-#category-form input {
+form input, textarea {
     background-color: #FFA957;
     display: block;
-    margin: 0 auto;
+    margin: 10px auto;
     padding: 15px;
-    width: 200px;
+    width: 280px;
     height: 20px;
     border-radius: 10px;
     border: none;
     color: #B85900;
     font-size: 16px;
-    font-family: Poppins-Bold;
+    font-family: Poppins-Regular;
     transition: 1s;
+    animation: up 0.4s 0.4s backwards;
+    flex: 1;
 }
 
-#category-form input:focus {
+form textarea {
+    min-height: 100px; max-height: 100px;
+    max-width: 280px; max-width: 280px;
+    resize: none;
+}
+
+form input:focus {
     background-color: #FFB570;
 }
 
-#category-form button {
+form button {
     background-color: #D56600;
     display: block;
     margin: 10px auto 0px;
-    width: 230px;
+    width: 310px;
     padding: 12px;
     border-radius: 10px;
     border: none;
@@ -68,8 +89,64 @@ body {
     font-family: Poppins-Bold;
     cursor: pointer;
     transition: 1s;
+    animation: up 0.4s 0.8s backwards;
 }
 
-#category-form button:hover {
+form button:hover {
     background-color: #B85900;
+}
+
+/* Tags Input */
+
+.tag-container {
+    background-color: #FFB570;
+    border: 2px solid #D56600;
+    padding: 10px;
+    max-width: 288px;
+    max-height: 110px;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    overflow-x: auto;
+    animation: up 0.4s 0.6s backwards;
+}
+
+.tag-container, 
+.tag-container .tag {
+    color: white;
+    font-family: Poppins-Regular;
+}
+
+.tag-container h4 {
+    display: block;
+    margin: 0 auto;
+    font-family: Poppins-Regular;
+    color: #faa85c;
+}
+
+.tag-container .tag {
+    margin: .2rem;
+    padding: .2rem .6rem;
+    background-color: #b85900c7;
+    border-radius: 15px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    cursor: default;
+}
+
+.tag i {
+    font-size: 0.8rem;
+    font-style: normal;
+    margin-left: .4rem;
+    transform: translateY(0.08rem);
+}
+
+.close::after {
+    color: #FFA957;
+    content: "✕";
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
 }
