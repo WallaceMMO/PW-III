@@ -3,22 +3,54 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use View;
+use DB;
 use App\Category;
 use App\Technicality;
 
-class GeneralController extends Controller{
+class GeneralController extends Controller {
     
     // Views
 
     public function dashboardView() {
-        return view('dashboard', [
+        return View::make('dashboard', [
+            'isFiltered' => false,
             'categories' => Category::all(),
             'technicalities' => Technicality::all(),
-        ]);
+        ])->render();
     }
 
-    public function detailView() {
-        return view('detail');
+    public function filteredView(Request $request) {
+        $category = Category::where('category', '=', $request->categ)->firstOrFail();
+        $technicalities = $category->technicalities;
+
+        return View::make('dashboard', [
+            'isFiltered' => true,
+            'technicalities' => $technicalities,
+            'category' => $category,
+            'categories' => Category::all()
+        ])->render();
+    }
+
+    public function searchView(Request $request) {
+        if($request->ajax()) {
+            $query = $request->get('query');
+            if($query != '') {
+                $technicalities = Technicality::where('technicality', 'like', '%'.$query.'%')
+                    ->orWhere('description', 'like', '%'.$query.'%')->get();
+                return View::make('dashboard', [
+                    'isFiltered' => false,
+                    'categories' => Category::all(),
+                    'technicalities' => $technicalities,
+                ])->render();
+            }            
+        }
+    }
+
+    public function detailView($id) {
+        return view('detail', [
+            'technicality' => Technicality::findOrFail($id)
+        ]);
     }
 
     public function createView() {

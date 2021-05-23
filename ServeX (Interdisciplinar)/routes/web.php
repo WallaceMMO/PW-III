@@ -5,8 +5,10 @@ use App\Http\Controllers\GeneralController;
 
 // Website
 
-Route::get('/', [GeneralController::class, 'dashboardView'])->name('dashboard');
+Route::get('/', [GeneralController::class, 'dashboardView']);
 Route::get('/detail/{id}', [GeneralController::class, 'detailView'])->name('detail');
+Route::get('/filter/{categ}', [GeneralController::class, 'filteredView']);
+Route::get('/search', [GeneralController::class, 'searchView']);
 
 // Admin
 

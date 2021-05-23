@@ -2985,30 +2985,30 @@
 
 /* Animate Classes */
 
-.anime-top{
+.anime-top {
     opacity: 0;
     transform: translate3d(0, -80px, 0);
     transition: 1s;
 }
 
-.anime-left{
+.anime-left {
     opacity: 0;
     transform: translate3d(-100px, 0, 0);
-    transition: 1.5s;
+    transition: .5s;
 }
 
-.anime-right{
+.anime-right {
     opacity: 0;
     transform: translate3d(100px, 0, 0);
     transition: .5s;
 }
 
-.anime-background{
+.anime-background {
     transform: translate3d(0, -100%, 0);
     transition: 2s;
 }
 
-.anime-start{
+.anime-start {
     opacity: 1;
     transform: translate3d(0, 0, 0);
     transition: 1s;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,12 +29,10 @@
         <header>
             <nav>
                 <label class="logo">ServeX</label>
-                <form>
-                    <input type="text" placeholder="Search...">
-                    <button type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
+                <div id="search-form">
+                    <input id="inptSearch" type="text" placeholder="Search...">
+                    <i class="fas fa-search"></i>
+                </div>
             </nav>
         </header>
 
@@ -42,25 +40,36 @@
         
         <section class="container-master">
             <div class="content">
+                <?php if(count($technicalities) == 0){?>
+                    <div class="not-found">
+                        <h4>Nothing Found :(</h4>
+                    </div>
+                <?php } ?>
                 <div class="cards">
                     @foreach($technicalities as $technicality)
-                        <div class="card">
-                            <h3>{{$technicality->technicality}}</h3>
-                            <p>{{$technicality->description}}</p>
-                            <p><i class="fas fa-hand-point-right"></i>
-                                <?php $i = 0; ?>
-                                @foreach($technicality->categories as $category)
-                                    <span>
-                                        {{$category->category}}
-                                        <?php
-                                            if(++$i < count($technicality->categories)){
-                                                echo ',';
-                                            }
-                                        ?>
-                                    </span>
-                                @endforeach
-                            </p>
-                        </div>
+                        <a href="{{route('detail', $technicality->id)}}">
+                            <div class="card">
+                                <h3>{{$technicality->technicality}}</h3>
+                                <p>{{$technicality->description}}</p>
+                                <p><i class="fas fa-hand-point-right"></i>
+                                    @if(!$isFiltered)
+                                        <?php $i = 0; ?>
+                                        @foreach($technicality->categories as $category)
+                                            <span>
+                                                {{$category->category}}
+                                                <?php
+                                                    if(++$i < count($technicality->categories)){
+                                                        echo ',';
+                                                    }
+                                                ?>
+                                            </span>
+                                        @endforeach
+                                    @else
+                                        <span>{{$category->category}}</span>
+                                    @endif
+                                </p>
+                            </div>
+                        </a>
                     @endforeach
                 </div>
             </div>
@@ -70,9 +79,11 @@
                 </div>
                 <div class="body-filter">
                     <h3>Filter by category</h3>
-                    <form>
-                        <select class="dropdown">
-                            <option value="null" class="label">Category</option>
+                    <form id="select-form" method="get">
+                        @csrf
+                        <select class="dropdown" name="categ">
+                            <option class="label">Category</option>
+                            <option value="null">Nothing</option>
                             @foreach($categories as $category)
                                 <option value="{{$category->id}}">{{$category->category}}</option>
                             @endforeach
@@ -118,7 +129,7 @@
                 </div> 
             </div>
             <div class="credits">
-                <p>Developed by <a target="_blank" href="#">Mtec Blinders</a></p>
+                <p>Developed by <span style="font-family: Poppins-Bold">Mtec Blinders</span></p>
             </div>
         </footer>
 

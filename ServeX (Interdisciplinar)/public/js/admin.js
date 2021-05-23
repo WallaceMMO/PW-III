@@ -98,24 +98,62 @@ window.addEventListener('keydown', e => {
     }
 }, true);
 
+// Alert
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
+
+// Validating the form
+
+const validateForm = (inptTechnicality, inptDescription, tags) => {
+    if(inptTechnicality.value == '') {
+        Toast.fire({icon: 'error', title: 'Put some technicality!'})
+        return false
+    }
+    if(inptDescription.value == '') {
+        Toast.fire({icon: 'error', title: 'Put some description!'})
+        return false
+    }
+    if(tags.length < 1 || tags == null) {
+        Toast.fire({icon: 'error', title: 'Put some tag!'})
+        return false
+    }
+    return true
+}
+
 // Getting the submit event
 
 form.onsubmit = (event) => {
 
-    const data = {
-        technicality: inptTechnicality.value,
-        description: inptDescription.value,
-        tags: tags
-    }
-
     event.preventDefault()
-    $.ajax({
-        url: '/create',
-        type: 'post',
-        dataType: 'json',
-        data: JSON.stringify(data),
-        success: (response) => {
-            console.log(response)
-        },
-    })
+    
+    if(validateForm(inptTechnicality, inptDescription, tags)) {
+        $.ajax({
+            url: '/create',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify({
+                technicality: inptTechnicality.value,
+                description: inptDescription.value,
+                tags: tags
+            }),
+            success: Toast.fire({
+                icon: 'success',
+                title: 'Technicality registered!'
+            })
+        })
+        form.reset()
+        tags.pop()
+        clearTags()
+    }
+    isEmpty()
 }

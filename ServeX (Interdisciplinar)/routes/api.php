@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+use App\Http\Controllers\Api\ApiController;
+
+Route::namespace('Api')->group(function(){
+    Route::get('/technicalities', [ApiController::class, 'getTechnicalities']);
+    Route::get('/technicalities/{category}', [ApiController::class, 'getTechnicalitiesByCategory']);
+    Route::get('/categories', [ApiController::class, 'getCategories']);
 });
